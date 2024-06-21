@@ -1,25 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import { Helmet } from "react-helmet";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import Home from "./pages";
+import Catalog from "./pages/catalog";
+import Favourites from "./pages/favourites";
+import Basket from "./pages/basket";
+import Product from "./pages/product";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+import FavouriteProvider from "./FavouriteContext";
+import BasketProvider from "./BasketContext";
 
-function App() {
+const App = () => {
+  const [searchQuery, setSearchQuery] = useState("");
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <FavouriteProvider>
+      <BasketProvider>
+        <Router>
+          <div>
+            <Helmet>
+              <meta charSet="utf-8" />
+              <title>POIZON - Sneakers, Shoes, Clothing, Bags | Authenticate First & Ship Later</title>
+              <meta name="description" content="POIZON - Sneakers, Shoes, Clothing, Bags | Authenticate First & Ship Later" />
+            </Helmet>
+            <Header onSearch={setSearchQuery} />
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="/catalog" element={<Catalog searchQuery={searchQuery} />} />
+              <Route path="/favourites" element={<Favourites />} />
+              <Route path="/basket" element={<Basket />} />
+              <Route path="/product/:id" element={<Product />} />
+            </Routes>
+            <Footer/>
+          </div>
+        </Router>
+      </BasketProvider>
+    </FavouriteProvider>
   );
-}
+};
 
 export default App;
