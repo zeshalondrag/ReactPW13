@@ -13,7 +13,7 @@ const Catalog = ({ searchQuery }) => {
   const categories = ["Sneakers", "Shoes", "Apparel", "Accessories", "Bags"];
 
   useEffect(() => {
-    axios.get('http://localhost:3001/media')
+    axios.get('/api/server')
       .then(response => {
         setProducts(response.data);
         setFilteredProducts(response.data); 
