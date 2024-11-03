@@ -13,13 +13,18 @@ const Catalog = ({ searchQuery }) => {
   const categories = ["Sneakers", "Shoes", "Apparel", "Accessories", "Bags"];
 
   useEffect(() => {
-  axios.get('/api/server')
+  const apiUrl =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3001/media"
+      : "/api/server"; 
+
+  axios.get(apiUrl)
     .then(response => {
-      const data = response.data.media || response.data; 
+      const data = response.data.media || response.data;
       setProducts(data);
       setFilteredProducts(data); 
     })
-    .catch(error => console.error('Error fetching data:', error));
+    .catch(error => console.error("Error fetching data:", error));
   }, []);
 
   useEffect(() => {
