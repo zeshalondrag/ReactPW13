@@ -12,7 +12,7 @@ const Product = () => {
   const { addToBasket } = useContext(BasketContext);
 
   useEffect(() => {
-    axios.get(`http://localhost:3001/media/${id}`)
+    axios.get(`/api/server/${id}`)
       .then(response => setProduct(response.data))
       .catch(error => console.error('Error fetching product:', error));
   }, [id]);
